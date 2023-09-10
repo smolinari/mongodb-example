@@ -1,17 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
+
+
+export type ContainerDocument = HydratedDocument<Container>
 
 @Schema()
-export class ComponentClass {
+export class Component {
   @Prop({ required: true, type: String })
   someString: string;
 }
 
-@Schema()
-export class ContainerClass extends Document {
-  @Prop({ required: true, type: ComponentClass })
-  content: ComponentClass;
+
+export class Container {
+  @Prop({ required: true, type: Component })
+  content: Component;
 }
 
-export const ContainerClassSchema =
-  SchemaFactory.createForClass(ContainerClass);
+export const ContainerSchema =
+  SchemaFactory.createForClass(Container);
